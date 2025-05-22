@@ -5,7 +5,7 @@
 
 //  TODO - You need to export your class to use it
 
-class Duration {
+export class Duration {
   /**
    * Total duration in seconds.
    * @type {number}
@@ -19,6 +19,7 @@ class Duration {
    */
   constructor(seconds = 0) {
      // YOUR CODE
+     this._totalSeconds = seconds;
   }
 
   /**
@@ -29,6 +30,8 @@ class Duration {
    */
   static fromMinutesAndSeconds(minutes = 0, seconds = 0) {
      // YOUR CODE
+       const totalSeconds = minutes * 60 + seconds;
+       return new Duration(totalSeconds);
   }
 
   /**
@@ -38,11 +41,21 @@ class Duration {
    */
   plus = (other) => {
          // YOUR CODE
+         if (!(other instanceof Duration)) {
+           throw new TypeError("Argument must be an instance of Duration");
+         }
+         const newTotalSeconds = this._totalSeconds + other._totalSeconds;
+         return new Duration(newTotalSeconds);
   };
 
   // YOUR COMMENT
   minus = (other) => {
          // YOUR CODE
+         if (!(other instanceof Duration)) {
+           throw new TypeError("Argument must be an instance of Duration");
+         }
+         const newTotalSeconds = this._totalSeconds - other._totalSeconds;
+         return new Duration(newTotalSeconds);
   };
 
   /**
@@ -51,5 +64,8 @@ class Duration {
    */
   toString = () => {
         // YOUR CODE
+         const minutes = Math.floor(this._totalSeconds / 60);
+         const seconds = this._totalSeconds % 60;
+         return `${minutes}m ${seconds}s`;
   };
 }
